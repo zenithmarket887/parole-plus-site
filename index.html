@@ -4,9 +4,35 @@
 <meta charset="utf-8"/>
 <title>Parole + AI — Retrouver sa voix</title>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="google-site-verification" content="5VlE2KHJ80vCGFU6GfXQ0vjJhcwWIep65m_hU-EyHSw" />
-  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+<meta name="google-site-verification" content="5VlE2KHJ80vCGFU6GfXQ0vjJhcwWIep65m_hU-EyHSw" />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
 <link rel="apple-touch-icon" href="/assets/favicon.png" />
+<meta name="description" content="Parole+ AI — Application d'entraînement à la lecture orale pour adultes en réapprentissage du langage. Conçu au Québec par Sébastien Girard." />
+<meta property="og:title" content="Parole+ AI — Retrouver sa voix" />
+<meta property="og:description" content="Application d'entraînement à la lecture orale pour adultes en réapprentissage du langage." />
+<meta property="og:image" content="https://www.paroleplus.ca/assets/parole-logo-final.png" />
+<meta property="og:url" content="https://www.paroleplus.ca/" />
+<meta property="og:type" content="website" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Parole+ AI",
+  "alternateName": "Parole Plus AI",
+  "url": "https://www.paroleplus.ca/",
+  "logo": "https://www.paroleplus.ca/assets/parole-logo-final.png",
+  "description": "Application d'entraînement à la lecture orale pour adultes en réapprentissage du langage.",
+  "founder": {
+    "@type": "Person",
+    "name": "Sébastien Girard"
+  },
+  "email": "sebastien.girard@paroleplus.ca",
+  "areaServed": "CA",
+  "sameAs": [
+    "https://www.paroleplus.ca/"
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -799,29 +825,51 @@
     <h2>Rejoindre la bêta.</h2>
     <p>Parole+ AI est en bêta privée. Inscrivez-vous, je vous écris dès que
     votre accès est prêt — promis, pas de spam.</p>
-    <!-- 1. AJOUTÉ : action (votre lien Formspree) et method="POST" -->
-<form 
-  action="https://formspree.io/f/xqeneadz" 
-  method="POST"
-  style="display:flex; gap:10px; max-width:520px; margin:0 auto; flex-wrap:wrap; justify-content:center;"
->
-  <input 
-    type="email" 
-    name="email" 
-    required 
-    placeholder="votre@courriel.ca"
-    style="flex:1; min-width:240px; height:56px; padding:0 18px; font-family:inherit; font-size:17px; border:2px solid var(--bordure); border-radius:14px; background:#FFF; color:var(--encre);"
-  />
-  
-  <button type="submit" class="btn btn-primary" style="border:none;">
-    M'inscrire
-  </button>
-</form>
-
-<!-- Zone pour le message de succès (optionnel avec Formspree) -->
-<div id="thanks" hidden style="text-align:center; margin-top:20px; color:var(--vert);">
-  Merci ! Votre inscription a bien été reçue.
-</div>
+    <form id="beta-form" action="https://formspree.io/f/xqeneadz" method="POST"
+          style="display:flex; gap:10px; max-width:520px; margin:0 auto; flex-wrap:wrap; justify-content:center;">
+      <input type="email" name="email" required placeholder="votre@courriel.ca"
+             style="flex:1; min-width:240px; height:56px; padding:0 18px; font-family:inherit; font-size:17px; border:2px solid var(--bordure); border-radius:14px; background:#FFF; color:var(--encre);"/>
+      <button type="submit" class="btn btn-primary" style="border:none;">M'inscrire</button>
+    </form>
+    <div id="thanks" hidden style="margin-top:20px; font-family:'Fraunces',serif; font-style:italic; font-size:18px; color:var(--vert);">
+      Merci. Je vous écris très vite.
+    </div>
+    <div id="form-error" hidden style="margin-top:20px; font-family:'Fraunces',serif; font-style:italic; font-size:16px; color:#B33A3A;">
+      Une erreur est survenue. Réessayez ou écrivez-moi directement.
+    </div>
+    <script>
+      (function () {
+        var form = document.getElementById('beta-form');
+        var thanks = document.getElementById('thanks');
+        var errorBox = document.getElementById('form-error');
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          errorBox.hidden = true;
+          var btn = form.querySelector('button[type="submit"]');
+          var originalLabel = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = 'Envoi…';
+          fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          })
+          .then(function (response) {
+            if (response.ok) {
+              form.reset();
+              thanks.hidden = false;
+            } else {
+              errorBox.hidden = false;
+            }
+          })
+          .catch(function () { errorBox.hidden = false; })
+          .finally(function () {
+            btn.disabled = false;
+            btn.textContent = originalLabel;
+          });
+        });
+      })();
+    </script>
   </div>
 </section>
 
