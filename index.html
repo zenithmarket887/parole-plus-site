@@ -825,10 +825,14 @@
     <h2>Rejoindre la bêta.</h2>
     <p>Parole+ AI est en bêta privée. Inscrivez-vous, je vous écris dès que
     votre accès est prêt — promis, pas de spam.</p>
-    <form id="beta-form" action="https://formspree.io/f/xqeneadz" method="POST"
+    <form id="beta-form" action="https://formsubmit.co/ajax/sebastien.girard@paroleplus.ca" method="POST"
           style="display:flex; gap:10px; max-width:520px; margin:0 auto; flex-wrap:wrap; justify-content:center;">
       <input type="email" name="email" required placeholder="votre@courriel.ca"
              style="flex:1; min-width:240px; height:56px; padding:0 18px; font-family:inherit; font-size:17px; border:2px solid var(--bordure); border-radius:14px; background:#FFF; color:var(--encre);"/>
+      <input type="hidden" name="_subject" value="Nouvelle inscription bêta Parole+ AI" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
       <button type="submit" class="btn btn-primary" style="border:none;">M'inscrire</button>
     </form>
     <div id="thanks" hidden style="margin-top:20px; font-family:'Fraunces',serif; font-style:italic; font-size:18px; color:var(--vert);">
